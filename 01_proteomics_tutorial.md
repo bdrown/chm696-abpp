@@ -161,3 +161,67 @@ We need a list of protein sequences in [FASTA file format](https://en.wikipedia.
 
 Alternatively, you can use the database located at `/class/bsdrown/data/databases/2025-03-09-decoys-reviewed-contam-UP000005640.fas`.
 
+## Workflow
+
+A FragPipe workflow file defines all of the parameters to be used in data analysis. FragPipe will call several programs - each with their own parameters.
+
+Go back to the `Workflow` tab and choose SLC-ABPP from the drop-down menu. Click `Load workflow`. This will load built-in settings for a TMTpro multiplexed experiment with MS3 quantification. It also includes a variable modification on cysteine (239.16293 Da) which corresponds to desthiobiotin iodoacetamide.
+
+### Adjust MSFragger settings
+
+One of the most consequential changes we need to change the fixed mass shift applied to lysines and peptide N-termini. The built-in workflow assumes 16-plex TMTpro, but the rawfile we're working with used 11-plex TMT. The expected mass shift for TMTpro is 304.20715 Da while the mass shift for TMT is 229.16293 Da. To make this change, navigate to the `MSFragger` tab and modify the Fixed modifications table entries for N-Term Peptide and K (lysine). They should both be 229.16293.
+
+![Adjust Modifications](img/adjust_mods.png)
+
+### Isobaric Tag Quantification
+
+Once MSFragger completes peptide identifications, we want to conduct relative quantification based on TMT reporter ion abundances. This can be accomplished with appropriate settings on the `Quant (Isobaric)` tab. We need to change the Label type to TMT-11 and define a reference as `DMSO-1`. In the table of Sample/Channel Annotations, click `Edit/Create`. This will open a dialog box where each TMT channel can be associated with a particular sample or experimental condition. Load annotation stubs for TMT-11, fill out the table as follows, and save in the same place as the raw files (i.e. scratch space):
+
+![TMT Annotations](img/tmt_annotations.png)
+
+### Save Workflow
+
+Navigate back to the Workflow tab, click `Save to custom folder`, and save it in the same place as your manifest and annotations file.
+
+At this point, we can close the FragPipe GUI. We won't be running our search directly through the GUI but instead through the Slurm workload manager.
+
+# Run search
+
+Rather than running the search on the front end node, we will create a job using [Slurm](https://en.wikipedia.org/wiki/Slurm_Workload_Manager), the job management software running on Scholar. Details about running jobs with Slurm on Scholar and other RCAC resources can be found on the [RCAC knowledgebase](https://www.rcac.purdue.edu/knowledge/scholar/run).
+
+To submit a job to Slurm, we need to create a short script called `search_scout`:
+```bash
+#!/bin/bash
+#
+#SBATCH -A scholar
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=32
+#SBATCH --time=00:30:00
+#SBATCH --job-name scout_search
+#SBATCH --error=%x-%J-%u.err
+#SBATCH --output=%x-%J-%u.out
+
+apptainer run /class/bsdrown/apps/fragpipe_22.0.sif \
+        --headless \
+        --workflow scout.workflow \
+        --manifest scout.fp-manifest \
+        --workdir results \
+        --threads 16 \
+        --ram 62
+```
+
+The first few lines starting with `#SBATCH` define variables that Slurm needs to run the job:
+ - `-A scholar` - Defines which [queue](https://www.rcac.purdue.edu/knowledge/scholar/run/slurm/queues) to run the job on. Run `slist` to see a list of available queues. Each queue has different resources available to jobs run on it and different time limits.
+ - `--nodes=1` - Defines the number of nodes to run the job on. Think of each node as an independent computer. While Dock is capable of running across multiple nodes, we just need one for this tutorial.
+ - `--ntasks-per-node=8` - Defines the number of threads or CPU cores to use for the job.
+ - `--time=00:30:00` - Time requested for the job. Be mindful of the time you request; you can't ask for more time than the queue allows but Slurm will kill the job if you run out of time before you're done!
+ - `--job-name` - As it sounds, this is just the name we give to the job to help us keep track of it.
+ - `--error=%x-%J-%u.err` - This defines where to write error messages. There are a couple of special characters (`%x`, `%J`, and `%u`). These correspond to the job name, job ID, and user who submitted the job. These might add up to something like, `search_scout-302789-bsdrown.err`.
+ - `--output=%x-%J-%u.out` - This defines where to write non-error messages. In most cases, Dock write messages to a different file.
+
+FragPipe is executed in a similar way to when we wanted to use the GUI, but this time it is run with the `--headless` command line option. FragPipe has several [command line options](https://fragpipe.nesvilab.org/docs/tutorial_headless.html), but briefly it is important that we define which workflow, manifest, and location for results. It is further important to run FragPipe with the same number of threads that we are requesting from Slurm. We will typically need >2GB of RAM for each thread, but this is somewhat constrained by which queue we are running on. We will actually use fewer threads than are available so as to use an appropriate amount of system memory.
+
+To submit this job script for Slurm for processing, run:
+```bash
+sbatch scout_search
+```
