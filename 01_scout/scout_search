@@ -1,0 +1,17 @@
+#!/bin/bash  
+#
+#SBATCH -A scholar
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=32
+#SBATCH --time=00:30:00
+#SBATCH --job-name scout_search
+#SBATCH --error=%x-%J-%u.err
+#SBATCH --output=%x-%J-%u.out
+ 
+apptainer run /class/bsdrown/apps/fragpipe_22.0.sif \
+	--headless \
+	--workflow scout.workflow \
+	--manifest scout.fp-manifest \
+	--workdir results \
+	--threads 16 \
+	--ram 62
