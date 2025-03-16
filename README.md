@@ -10,7 +10,7 @@ Visit the [tutorial](01_proteomics_tutorial.md) for more information about how t
 
 ## Chemical Proteomics Assignment
 
-For Problem Set 4, students will analyze public data from covalent ligand discovery experiments.
+For Problem Set 4, students will analyze public data from covalent ligand discovery experiments. This work is divided into two activities: [performing a search](02_search_profiling_data.md) of raw mass spectrometry data and [interpreting](03_interpret_search.md) the quantitative output to identify selective covalent inhibitors.
 
 ## Requirements
 
