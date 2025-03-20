@@ -11,6 +11,18 @@ In this tutorial we will use MSFragger to search TMT-multiplex mass spectrometry
     - [MacOS, Linux, or Windows 11](#macos-linux-or-windows-11)
     - [Windows 10](#windows-10)
   - [Setting up environment on Scholar](#setting-up-environment-on-scholar)
+- [Download Data from PRIDE](#download-data-from-pride)
+  - [Using Globus to Access Data](#using-globus-to-access-data)
+  - [Create symbolic link to scratch space](#create-symbolic-link-to-scratch-space)
+- [Setup MSFragger search](#setup-msfragger-search)
+  - [Run FragPipe GUI](#run-fragpipe-gui)
+  - [Create File Manifest](#create-file-manifest)
+  - [Download Database](#download-database)
+  - [Workflow](#workflow)
+    - [Adjust MSFragger settings](#adjust-msfragger-settings)
+    - [Isobaric Tag Quantification](#isobaric-tag-quantification)
+    - [Save Workflow](#save-workflow)
+- [Run search](#run-search)
 
 
 # Accessing Scholar
@@ -117,6 +129,20 @@ MANCIAS-LUMOS�FinniganBl���,�Xcalibur_SystemXcalibur_Systeml���,
 ```
 
 While there are some parts that are human-readable (e.g. seems to have been acquired on a Orbitrap Fusion Lumos), many characters cannot be interpreted. The RAW file format is proprietary, so we will need to use software that utilizes libraries provided by Thermo Fisher to access these data.
+
+## Create symbolic link to scratch space
+
+While `$SCRATCH` is a convenient way to access scratch space from the command line, we can't use it in graphical user interfaces. For that reason, it is helpful to create a symbolic link to scratch in your home directory:
+
+```sh
+ln -s /scratch/scholar/$USER ~/scratch
+```
+
+Now I can access scratch space within a file browser:
+
+![Scratch Link](img/scratch_link_filebrowser.png)
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 
 # Setup MSFragger search
 
