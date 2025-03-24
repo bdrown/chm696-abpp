@@ -11,11 +11,19 @@ In the results folder, you will find many [output files](https://fragpipe.nesvil
 3. How many protein groups were identified in this study?
 4. Which non-contaminant protein group was identified the greatest number of times?
 
+### Understanding the peptide output files
+
+The `.tsv` files are basically giant tables that can accessed programmatically or browsed using spreadsheet programs (LibreOffice Calc on Scholar or Microsoft Excel on your personal computer).
+
+One common questions is: "what's the difference between the `combined_peptide.tsv` and `combined_modified_peptide.tsv` files?" The `combined_modified_peptide.tsv` file contains a table of all peptides in their various forms identified in the study with all chemical modifications included. For example, the peptide `AAFECMYTLLDSCLDR` from [CAND1](https://www.uniprot.org/uniprotkb/Q86VP6/entry) appears multiple times in the `combined_modified_peptide.tsv` file because the two cysteines can be alternatively alkylated with the desthiobiotin-iodoacetamide or iodoacetamide. Consequently, we see entries for `n[304.2072]AAFEC[239.1629]MYTLLDSC[239.1629]LDR`, `n[304.2072]AAFEC[239.1629]MYTLLDSC[57.0215]LDR`, and `n[304.2072]AAFEC[239.1629]M[15.9949]YTLLDSC[239.1629]LDR` that all come from the same initial peptide. Notice the numbers in square brackets. These indicate the presence of a chemical modification at that position with a monoisotopic mass shift corresponding to that value. Consider - what modifications correspond to 15.9949, 57.0215, 239.1629, 304.2072 respectively?
+
+The `combined_peptide.tsv` file on the other hand summarizes all of the chemical forms of a peptide (peptidoform) to a single entry with all of the modifications stripped out. For example, there is only one entry for `AAFECMYTLLDSCLDR` that summarizes all of the findings for all of the peptidoforms associated with this base peptide.
+
 ## Interpreting Reactivity
 
 In the `tmt-report` folder you will find the quantification results. Quantification was performed at multiple levels (peptide, protein, and PTM-site) and reported as absolute abundances and ratios to the reference channel (e.g. DMSO).
 
-Inspect the `ratio_single-site_None.tsv` file. This file lists all of the quantified peptides that contain a modified cysteine and the ratio of their abundance in each sample relative to the reference channel. Answer the following questions:
+Inspect the `ratio_single-site_None.tsv` file. This file lists all of the quantified peptides that contain a modified cysteine and starting in the 10th column - the ratio of their abundance in each sample relative to the reference channel. Answer the following questions:
 
 1. How many reactive cysteines were quantified?
 2. How does this value compare to the number of peptides that were identified with an attached cysteine-reactive probe? Why might these numbers differ?
