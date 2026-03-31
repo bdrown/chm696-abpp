@@ -69,7 +69,7 @@ for raw in "$RAW_DIR"/JM*_HCT_Cys_TMT*.raw; do
     mkdir -p "$target_dir"
     mv "$raw" "$target_dir/"
     echo "  $basename_raw -> $tmt_dir/"
-    ((moved++))
+    ((++moved))
 done
 
 echo "Moved $moved raw file(s)."
@@ -98,7 +98,7 @@ for anno in "$ANNO_DIR"/TMT*_annotation.txt; do
     if [[ -d "$target_dir" ]]; then
         cp "$anno" "$target_dir/"
         echo "  $basename_anno -> $tmt_dir/"
-        ((copied++))
+        ((++copied))
     else
         echo "  Warning: directory '$tmt_dir' not found for '$basename_anno', skipping."
     fi
@@ -118,7 +118,7 @@ for i in $(seq 1 19); do
 
     if [[ ! -d "$dir_path" ]]; then
         echo "  MISSING: $tmt_dir directory not found"
-        ((errors++))
+        ((++errors))
         continue
     fi
 
@@ -128,11 +128,11 @@ for i in $(seq 1 19); do
     status=""
     if [[ "$raw_count" -ne 2 ]]; then
         status="$status [expected 2 .raw files, found $raw_count]"
-        ((errors++))
+        ((++errors))
     fi
     if [[ "$anno_count" -ne 1 ]]; then
         status="$status [expected 1 annotation file, found $anno_count]"
-        ((errors++))
+        ((++errors))
     fi
 
     if [[ -z "$status" ]]; then
