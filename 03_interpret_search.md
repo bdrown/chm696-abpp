@@ -51,4 +51,3 @@ Think of these CR values as a response in a high-throughput screen. We can use a
 2. Which compound proved to be the most promiscuous (greatest number of hits)?
 3. Which cysteine was the most promiscuous (greatest number of compounds it engaged)?
 4. I am interested in discovering selective covalent inhibitors of the deubiquitinase USP14 and see one compounds (AC35) hit against it in both biological replicates. Would this be a good starting point for developing a selective inhibitor? Why or why not?
-5. What is your opinion on this overall approach to selective inhibitor discovery when compared to other screening and selection approaches discussed in class?

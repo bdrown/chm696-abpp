@@ -10,7 +10,13 @@ Use Globus to fetch raw mass spectrometry data from [PRIDE](https://www.ebi.ac.u
 
 ## File organization
 
-Because of the way that FragPipe associates TMT annotation files with data, there must be only one TMT annotation file in a folder and it must share that folder with the raw mass spectrometry data. This can be accomplished by creating 19 folders named `TMT01` through `TMT19`. Place the appropriate raw files into each folder. When you eventually create TMT annotation files, it should look something like this:
+Because of the way that FragPipe associates TMT annotation files with data, there must be only one TMT annotation file in a folder and it must share that folder with the raw mass spectrometry data. This can be accomplished by creating 19 folders named `TMT01` through `TMT19` and placing the appropriate raw files into each folder. While this could be done manually, we've provided a shell script that will do this for you.
+
+```bash
+bash organize_files.sh /path/to/raw/files /path/to/annotation/files
+```
+
+When you eventually create TMT annotation files, it should look something like this:
 
 ```
 TMT01

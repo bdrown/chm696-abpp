@@ -3,7 +3,7 @@
 
 # Please edit the following path to point to the correct location.
 # In Windows, please replace single '\' with '\\'
-database.db-path=/home/bsdrown/2025-03-09-decoys-reviewed-contam-UP000005640.fas
+database.db-path=/class/bsdrown/data/databases/2025-03-09-decoys-reviewed-contam-UP000005640.fas
 
 crystalc.run-crystalc=false
 database.decoy-tag=rev_
