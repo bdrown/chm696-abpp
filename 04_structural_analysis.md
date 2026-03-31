@@ -24,7 +24,7 @@ Ubiquitin-specific protease 14 ([USP14](https://www.uniprot.org/uniprotkb/P54578
 
 ### Questions
 
-5. Where is the hit cysteine located relative to the catalytic triad? Measure the distance (in Ångströms) between the sulfur atom of your hit cysteine and the sulfur atom of the catalytic Cys113 (PDB numbering; Cys114 in UniProt). Is the hit cysteine in the active site cleft, on the protein surface, or buried in the interior?
+5. Where is the hit cysteine located relative to the catalytic triad? Measure the distance (in Ångströms) between the sulfur atom of your hit cysteine and the sulfur atom of the catalytic Cys113 (PDB numbering; Cys114 in UniProt). Is the hit cysteine in the active site cleft, on the protein surface, or buried in the interior? Include a figure that visualizes all the relevant cysteines.
 
 6. Based on the location of the hit cysteine, would you predict that a covalent modification at this site would inhibit USP14 deubiquitinase activity? Briefly explain your reasoning (e.g. would it directly block substrate binding, allosterically disrupt folding, or have no functional consequence?).
 
