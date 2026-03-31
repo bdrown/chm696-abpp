@@ -1,6 +1,6 @@
 # Proteomics activities in CHM696
 
-Proteomics tutorial and assignment in CHM696, a graduate-level chemical biology course at Purdue University. 
+Proteomics tutorial and assignment in CHM696, a graduate-level chemical biology course at Purdue University.
 
 ## Proteomics Tutorial
 
@@ -10,7 +10,7 @@ Visit the [tutorial](01_proteomics_tutorial.md) for more information about how t
 
 ## Chemical Proteomics Assignment
 
-For Problem Set 4, students will analyze public data from covalent ligand discovery experiments. This work is divided into two activities: [performing a search](02_search_profiling_data.md) of raw mass spectrometry data and [interpreting](03_interpret_search.md) the quantitative output to identify selective covalent inhibitors.
+For Problem Set 5, students will analyze public data from covalent ligand discovery experiments. This work is divided into three activities: [performing a search](02_search_profiling_data.md) of raw mass spectrometry data, [interpreting](03_interpret_search.md) the quantitative output to identify selective covalent inhibitors, and [visualization](04_structural_analysis.md) of liganded cysteines on a protein structure.
 
 ## Requirements
 
